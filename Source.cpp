@@ -30,7 +30,7 @@ private:
 		MSG_WM_PAINT(OnPaint)
 		MSG_WM_CREATE(OnCreate)
 		MSG_WM_DESTROY(OnDestroy)
-		END_MSG_MAP()
+	END_MSG_MAP()
 
 	void OnPaint(HDC /*hDC*/)
 	{
