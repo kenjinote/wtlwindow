@@ -13,62 +13,62 @@ CAppModule _Module;
 class CMyWindow : public CWindowImpl<CMyWindow>, public CMessageFilter, public CIdleHandler
 {
 public:
-    DECLARE_WND_CLASS(TEXT("Hello"));
+	DECLARE_WND_CLASS(TEXT("Hello"));
 
 private:
-    virtual BOOL PreTranslateMessage(MSG* pMsg)
+	virtual BOOL PreTranslateMessage(MSG* pMsg)
 	{
-        return FALSE;
-    }
+		return FALSE;
+	}
 
-    virtual BOOL OnIdle()
+	virtual BOOL OnIdle()
 	{
-        return FALSE;
-    }
+		return FALSE;
+	}
 
-    BEGIN_MSG_MAP_EX(CMyWindow)
-        MSG_WM_PAINT(OnPaint)
-        MSG_WM_CREATE(OnCreate)
-        MSG_WM_DESTROY(OnDestroy)
-    END_MSG_MAP()
+	BEGIN_MSG_MAP_EX(CMyWindow)
+		MSG_WM_PAINT(OnPaint)
+		MSG_WM_CREATE(OnCreate)
+		MSG_WM_DESTROY(OnDestroy)
+		END_MSG_MAP()
 
-    void OnPaint(HDC /*hDC*/)
+	void OnPaint(HDC /*hDC*/)
 	{
-        CPaintDC dc(m_hWnd);
-        CRect rect;
-        GetClientRect(rect);
-        dc.DrawText(_T("Hello, ATL/WTL"), -1, rect, DT_SINGLELINE | DT_CENTER | DT_VCENTER);
-    }
+		CPaintDC dc(m_hWnd);
+		CRect rect;
+		GetClientRect(rect);
+		dc.DrawText(_T("Hello, ATL/WTL"), -1, rect, DT_SINGLELINE | DT_CENTER | DT_VCENTER);
+	}
 
-    LRESULT OnCreate(LPCREATESTRUCT lpcs)
+	LRESULT OnCreate(LPCREATESTRUCT lpcs)
 	{
-        CMessageLoop* pLoop = _Module.GetMessageLoop();
-        pLoop->AddMessageFilter(this);
-        pLoop->AddIdleHandler(this);
-        return 0;
-    }
+		CMessageLoop* pLoop = _Module.GetMessageLoop();
+		pLoop->AddMessageFilter(this);
+		pLoop->AddIdleHandler(this);
+		return 0;
+	}
 
-    void OnDestroy()
+	void OnDestroy()
 	{
-        PostQuitMessage(0);
-    }
+		PostQuitMessage(0);
+	}
 };
 
 int WINAPI _tWinMain(HINSTANCE hInstance, HINSTANCE, LPTSTR lpCmdLine, int nCmdShow)
 {
-    _Module.Init(NULL, hInstance);
+	_Module.Init(NULL, hInstance);
 
-    CMessageLoop theLoop;
-    _Module.AddMessageLoop(&theLoop);
+	CMessageLoop theLoop;
+	_Module.AddMessageLoop(&theLoop);
 
-    CMyWindow wnd;
-    wnd.Create(NULL, CWindow::rcDefault, TEXT("Hello, ATL/WTL"), WS_OVERLAPPEDWINDOW | WS_VISIBLE);
+	CMyWindow wnd;
+	wnd.Create(NULL, CWindow::rcDefault, TEXT("Hello, ATL/WTL"), WS_OVERLAPPEDWINDOW | WS_VISIBLE);
 
-    int nRet = theLoop.Run();
+	int nRet = theLoop.Run();
 
-    _Module.RemoveMessageLoop();
+	_Module.RemoveMessageLoop();
 
-    _Module.Term();
+	_Module.Term();
 
-    return nRet;
+	return nRet;
 }
